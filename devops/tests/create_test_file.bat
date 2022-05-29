@@ -41,7 +41,7 @@ rem template file vars
 rem path with \
 set tempPath=%projectPureName%\%testRelativePath%\%testClassName%.h
 rem replace \ with / for include string
-set TEXT_INCLUDE_FILE="%tempPath:\=/%"
+set TEST_INCLUDE_FILE="%tempPath:\=/%"
 set "OR=^|"
 set "AND=^&"
 
@@ -59,7 +59,7 @@ call "%~dp0\..\misc\format_all_files.bat"
 ::rem generate project files
 ::call "%~dp0generate_project_files_4.27.bat"
 
-echo %TEXT_INCLUDE_FILE_1%
+echo %TEST_INCLUDE_FILE_1%
 goto:eof
 
 rem function to create .h / .cpp from template
