@@ -17,7 +17,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FScienceFibonacciStress, TEXT("TPSGame.Science.
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FScienceFibonacciLogHasErrors, TEXT("TPSGame.Science.Fibonacci.LogHasErrors"),
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::HighPriority | EAutomationTestFlags::ProductFilter);
 
-using namespace TPSGame;
+using namespace TPS::Test;
 
 bool FScienceFibonacciSimple::RunTest(const FString& Parameters)
 {

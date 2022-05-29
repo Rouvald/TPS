@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-namespace TPSGame
+namespace TPS
+{
+namespace Test
 {
 template <typename Type1, typename Type2>
 struct TestPayLoad
@@ -9,4 +11,5 @@ struct TestPayLoad
     Type2 ExpectedValue;
     float Tolerance = KINDA_SMALL_NUMBER;
 };
-}  // namespace TPSGame
+}  // namespace Test
+}  // namespace TPS

@@ -16,7 +16,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FMathSqrt, TEXT("TPSGame.Math.Sqrt"),
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FMathSin, TEXT("TPSGame.Math.Sin"),
     EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::HighPriority | EAutomationTestFlags::ProductFilter);
 
-using namespace TPSGame;
+using namespace TPS::Test;
 
 bool FMathMaxInt::RunTest(const FString& Parameters)
 {

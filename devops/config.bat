@@ -12,7 +12,8 @@ rem Engine version for packaging
 set runUATPath=%enginePath_4.27%\Engine\Build\BatchFiles\RunUAT.bat
 
 rem Project params
-set projectRoot=c:\UE4_Projects\TPS\
+set projectRoot=c:\UE4_Projects\TPS
+set projectPureName=TPS
 set projectName=TPS.uproject
 set projectPath=%projectRoot%\%projectName%
 
@@ -25,3 +26,6 @@ rem Other params
 set sourceCodePath=%projectRoot%\Source
 set dirsToRemove=Intermediate DerivedDataCache Saved Binaries .vs Build
 set filesToRemove=*.sln
+
+rem Target params
+set COPYRIGHT_LINE=// TPS Testing Project. All Rights Reserved.
