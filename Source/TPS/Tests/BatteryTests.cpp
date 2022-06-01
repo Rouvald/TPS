@@ -55,7 +55,7 @@ bool FBatteryTest::RunTest(const FString& Parameters)
     {
         BatteryObject.Charge();
     }
-    TestTrueExpr(FMath::IsNearlyEqual(BatteryObject.GetPercent(), 1.0f));
+    TestTrueExpr(FMath::IsNearlyEqual(BatteryObject.GetPercent(), BatteryObject.GetMaxPercent()));
 
     AddInfo("Battery comparison");
     const Battery BatteryLow(0.3f);

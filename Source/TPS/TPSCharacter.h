@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "TPSCharacter.generated.h"
 
+class UTPSInventoryComponent;
+
 UCLASS(config = Game)
 class ATPSCharacter : public ACharacter
 {
@@ -59,6 +61,9 @@ protected:
     void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
 protected:
+    UPROPERTY(VisibleAnywhere)
+    UTPSInventoryComponent* InventoryComponent;
+
     // APawn interface
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
     // End of APawn interface
