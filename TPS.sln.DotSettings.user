@@ -1,10 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b7e599c8_002D1f73_002D46ac_002D8500_002D88cfbd6b1f09/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3ef87639_002D58db_002D48a1_002Dae1c_002D41845f5b0203/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ComponentCouldBeCreated" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;And&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;UnrealTest::9CFF957E-A16E-465A-ABE0-26CC494CF9AF::Windows,Version=v10.0.20348::TPSGame.Items.Battery&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
     &lt;Project Location="C:\UE4_Projects\TPS\Intermediate\ProjectFiles" Presentation="&amp;lt;Games&amp;gt;\&amp;lt;TPS&amp;gt;" /&gt;&#xD;
-    &lt;Namespace&gt;TPSGame.Items&lt;/Namespace&gt;&#xD;
+    &lt;Namespace&gt;TPSGame.Components.Inventory&lt;/Namespace&gt;&#xD;
   &lt;/And&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

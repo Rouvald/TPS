@@ -2,7 +2,6 @@
 
 #include "UI/TPSInventoryRowWidget.h"
 #include "Components/TPSInventoryComponent.h"
-#include "TPSCharacter.h"
 #include "Components/TextBlock.h"
 
 void UTPSInventoryRowWidget::NativeOnInitialized()
@@ -29,10 +28,9 @@ void UTPSInventoryRowWidget::SetItemType(const EInventoryItemType& NewItemType)
 }
 FText UTPSInventoryRowWidget::GetItemAmount() const
 {
-    const auto Player = Cast<ATPSCharacter>(GetOwningPlayerPawn());
-    if (!Player) return FText::FromString("Error");
+    if (!GetOwningPlayerPawn()) return FText::FromString("Error");
 
-    const auto InventoryComponent = Player->FindComponentByClass<UTPSInventoryComponent>();
+    const auto InventoryComponent = GetOwningPlayerPawn()->FindComponentByClass<UTPSInventoryComponent>();
     if (!InventoryComponent) return FText::FromString("Error");
 
     return FText::FromString(FString::FromInt(InventoryComponent->GetInventoryAmountByType(ItemType)));

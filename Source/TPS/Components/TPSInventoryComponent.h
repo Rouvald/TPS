@@ -16,7 +16,6 @@ public:
     UTPSInventoryComponent();
 
     bool TryToAddItem(const FInventoryItemData& ItemData);
-    bool CanAddItem(const FInventoryItemData& ItemData) const;
 
     int32 GetInventoryAmountByType(EInventoryItemType ItemType) const;
 
@@ -28,4 +27,6 @@ protected:
 
 private:
     TMap<EInventoryItemType, int32> InventoryItemsMap;
+
+    bool CanAddItem(const FInventoryItemData& ItemData) const;
 };

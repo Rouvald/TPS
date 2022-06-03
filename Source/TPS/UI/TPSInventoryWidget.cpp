@@ -1,8 +1,6 @@
 // TPS Testing Project. All Rights Reserved.
 
 #include "UI/TPSInventoryWidget.h"
-
-#include "TPSCharacter.h"
 #include "TPSInventoryRowWidget.h"
 #include "Components/TPSInventoryComponent.h"
 #include "Components/VerticalBox.h"
@@ -15,13 +13,10 @@ void UTPSInventoryWidget::NativeOnInitialized()
 
 void UTPSInventoryWidget::InitInventory() const
 {
-    if (!ItemRowsVerBox) return;
+    if (!ItemRowsVerBox || !GetOwningPlayerPawn()) return;
     ItemRowsVerBox->ClearChildren();
 
-    const auto Player = Cast<ATPSCharacter>(GetOwningPlayerPawn());
-    if (!Player) return;
-
-    const auto InventoryComponent = Player->FindComponentByClass<UTPSInventoryComponent>();
+    const auto InventoryComponent = GetOwningPlayerPawn()->FindComponentByClass<UTPSInventoryComponent>();
     if (!InventoryComponent) return;
 
     const UEnum* InvEnum = StaticEnum<EInventoryItemType>();

@@ -11,6 +11,7 @@ void UTPSInventoryComponent::BeginPlay()
 {
     Super::BeginPlay();
 
+#if !UE_BUILD_SHIPPING
     const UEnum* InvEnum = StaticEnum<EInventoryItemType>();
     checkf(InvEnum, TEXT("InvEnum == nullptr"));
     for (uint8 Index = 0; Index < InvEnum->NumEnums() - 1; ++Index)
@@ -19,6 +20,7 @@ void UTPSInventoryComponent::BeginPlay()
         const bool LimitCheckCondition = InventoryItemsLimits.Contains(EnumElem) && InventoryItemsLimits[EnumElem] > 0;
         checkf(LimitCheckCondition, TEXT("Limit for %s doesn't exist or less then 0"), *UEnum::GetValueAsString(EnumElem));
     }
+#endif
 }
 
 bool UTPSInventoryComponent::TryToAddItem(const FInventoryItemData& ItemData)

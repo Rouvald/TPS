@@ -34,9 +34,9 @@ void ATPSInventoryItem::EndPlay(const EEndPlayReason::Type EndPlayReason)
     UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyItemEffect, GetActorLocation());
 }
 
-void ATPSInventoryItem::BeginPlay()
+void ATPSInventoryItem::OnConstruction(const FTransform& Transform)
 {
-    Super::BeginPlay();
+    Super::OnConstruction(Transform);
     InitInventoryItem();
 }
 
@@ -47,7 +47,6 @@ void ATPSInventoryItem::InitInventoryItem()
     {
         Mesh->SetStaticMesh(ItemsMap[ItemData.InventoryItemType]);
     }
-
     /* Update Static mesh material */
     const auto MatInstDyn = Mesh->CreateDynamicMaterialInstance(0, BaseColor);
     const auto RandColor = ItemColors[FMath::RandRange(0, ItemColors.Num() - 1)];
@@ -55,7 +54,7 @@ void ATPSInventoryItem::InitInventoryItem()
     {
         MatInstDyn->SetVectorParameterValue(ColorParameterName, RandColor);
     }
-    /* Set item amount in text render */
+    /* Set item amount and color in text render */
     TextRenderComponent->SetText(FText::FromString(FString::FromInt(ItemData.ItemAmount)));
     TextRenderComponent->SetTextRenderColor(RandColor.ToFColor(true));
 }
