@@ -12,18 +12,22 @@ ATPSInventoryItem::ATPSInventoryItem()
     PrimaryActorTick.bCanEverTick = false;
 
     SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-    checkf(SphereComponent, TEXT("SphereComponent = nullptr")) SphereComponent->SetSphereRadius(30.0f);
+    checkf(SphereComponent, TEXT("SphereComponent = nullptr"));
+    SphereComponent->SetSphereRadius(30.0f);
     SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     SphereComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
     SphereComponent->SetGenerateOverlapEvents(true);
     SetRootComponent(SphereComponent);
 
     Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-    checkf(Mesh, TEXT("Mesh = nullptr")) Mesh->SetupAttachment(GetRootComponent());
-    Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+    checkf(Mesh, TEXT("Mesh = nullptr"));
+    Mesh->SetupAttachment(GetRootComponent());
+    Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    // Mesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 
     TextRenderComponent = CreateDefaultSubobject<UTextRenderComponent>(TEXT("TextRenderComponent"));
-    checkf(TextRenderComponent, TEXT("TextRenderComponent = nullptr")) TextRenderComponent->SetupAttachment(GetRootComponent());
+    checkf(TextRenderComponent, TEXT("TextRenderComponent = nullptr"));
+    TextRenderComponent->SetupAttachment(GetRootComponent());
     TextRenderComponent->SetRelativeLocation(FVector{0.0f, 0.0f, 40.0f});
     TextRenderComponent->SetHorizontalAlignment(EHorizTextAligment::EHTA_Center);
 }
@@ -47,12 +51,19 @@ void ATPSInventoryItem::InitInventoryItem()
     {
         Mesh->SetStaticMesh(ItemsMap[ItemData.InventoryItemType]);
     }
-    /* Update Static mesh material */
-    const auto MatInstDyn = Mesh->CreateDynamicMaterialInstance(0, BaseColor);
-    const auto RandColor = ItemColors[FMath::RandRange(0, ItemColors.Num() - 1)];
-    if (MatInstDyn && ItemColors.Num())
+    /* Update Static mesh  material */
+    FLinearColor RandColor = DefaultColor;
+    if (ItemColors.Num())
     {
-        MatInstDyn->SetVectorParameterValue(ColorParameterName, RandColor);
+        RandColor = ItemColors[FMath::RandRange(0, ItemColors.Num() - 1)];
+    }
+    if (BaseMaterialInterface)
+    {
+        const auto MatInstDyn = Mesh->CreateDynamicMaterialInstance(0, BaseMaterialInterface);
+        if (MatInstDyn)
+        {
+            MatInstDyn->SetVectorParameterValue(ColorParameterName, RandColor);
+        }
     }
     /* Set item amount and color in text render */
     TextRenderComponent->SetText(FText::FromString(FString::FromInt(ItemData.ItemAmount)));

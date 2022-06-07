@@ -1,6 +1,6 @@
 // TPS Testing Project. All Rights Reserved.
 
-#if (WITH_DEV_AUTOMATION_TESTS || WITH_PERF_AUTOMATION_TESTS)
+#if WITH_AUTOMATION_TESTS
 
 #include "Tests/ScienceFuncLibTests.h"
 #include "Tests/TestUtils.h"

@@ -2,6 +2,9 @@
 
 #if (WITH_DEV_AUTOMATION_TESTS || WITH_PERF_AUTOMATION_TESTS)
 
+#include "Engine/Blueprint.h"
+#include "Tests/AutomationCommon.h"
+
 namespace TPS
 {
 namespace Test
@@ -19,6 +22,22 @@ struct TestPayLoad
     {                                                                          \
         const auto EnumElem = static_cast<TYPE>(Index);
 #define ENUM_LOOP_END }
+
+template <typename T>
+T* CreateBlueprint(UWorld* World, const FString& BpName, const FTransform& Transform = FTransform::Identity)
+{
+    const UBlueprint* BPItem = LoadObject<UBlueprint>(nullptr, *BpName);
+    return (World && BPItem) ? World->SpawnActor<T>(BPItem->GeneratedClass, Transform) : nullptr;
+}
+
+class LevelScope
+{
+public:
+    LevelScope(const FString& MapName) { AutomationOpenMap(MapName); };
+    ~LevelScope() { ADD_LATENT_AUTOMATION_COMMAND(FExitGameCommand); }
+};
+
+UWorld* GetTestGameWorld();
 }  // namespace Test
 }  // namespace TPS
 

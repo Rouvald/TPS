@@ -11,7 +11,7 @@ class USphereComponent;
 class UTextRenderComponent;
 class UNiagaraSystem;
 
-UCLASS()
+UCLASS(Abstract)
 class TPS_API ATPSInventoryItem : public AActor
 {
     GENERATED_BODY()
@@ -38,10 +38,13 @@ protected:
     TMap<EInventoryItemType, UStaticMesh*> ItemsMap;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
-    UMaterialInterface* BaseColor;
+    UMaterialInterface* BaseMaterialInterface;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
     FName ColorParameterName = "Color";
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
+    FLinearColor DefaultColor;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Properties", meta = (AllowPrivateAccess = "true"))
     TArray<FLinearColor> ItemColors;
