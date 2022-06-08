@@ -52,11 +52,7 @@ void ATPSInventoryItem::InitInventoryItem()
         Mesh->SetStaticMesh(ItemsMap[ItemData.InventoryItemType]);
     }
     /* Update Static mesh  material */
-    FLinearColor RandColor = DefaultColor;
-    if (ItemColors.Num())
-    {
-        RandColor = ItemColors[FMath::RandRange(0, ItemColors.Num() - 1)];
-    }
+    const auto RandColor = GenerateItemColor();
     if (BaseMaterialInterface)
     {
         const auto MatInstDyn = Mesh->CreateDynamicMaterialInstance(0, BaseMaterialInterface);
@@ -84,4 +80,9 @@ void ATPSInventoryItem::NotifyActorBeginOverlap(AActor* OtherActor)
             }
         }
     }
+}
+
+FLinearColor ATPSInventoryItem::GenerateItemColor_Implementation()
+{
+    return ItemColors.Num() ? ItemColors[FMath::RandRange(0, ItemColors.Num() - 1)] : DefaultColor;
 }

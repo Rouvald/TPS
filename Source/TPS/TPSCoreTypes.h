@@ -19,8 +19,10 @@ struct FInventoryItemData
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "InventotyItem")
-    EInventoryItemType InventoryItemType;
+    EInventoryItemType InventoryItemType = EInventoryItemType::EIIT_Sphere;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "InventotyItem", meta = (ClampMin = "0"))
-    int32 ItemAmount;
+    int32 ItemAmount = 10;
+
+    FString ToString() const { return FString::Printf(TEXT("(InventoryItemType=%i,ItemAmount=%i)"), InventoryItemType, ItemAmount); }
 };

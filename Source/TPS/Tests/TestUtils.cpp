@@ -3,6 +3,7 @@
 #if WITH_AUTOMATION_TESTS
 
 #include "Tests/TestUtils.h"
+#include "Misc/OutputDeviceNull.h"
 
 namespace TPS
 {
@@ -19,6 +20,20 @@ UWorld* GetTestGameWorld()
         }
     }
     return nullptr;
+}
+
+void CallFuncByNameWithParams(UObject* Object, const FString& FuncName, const TArray<FString>& Params)
+{
+    if (!Object) return;
+
+    // Command pattern: "FunctionName Param1 Param2 Param3"
+    FString Command = FuncName;
+    for (const auto Param : Params)
+    {
+        Command.Append(" ").Append(Param);
+    }
+    FOutputDeviceNull OutputDeviceNull;
+    Object->CallFunctionByNameWithArguments(*Command, OutputDeviceNull, nullptr, true);
 }
 }  // namespace Test
 }  // namespace TPS

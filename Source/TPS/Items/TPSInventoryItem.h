@@ -21,6 +21,8 @@ public:
 
     virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
+    const FInventoryItemData& GetItemInventoryData() const { return ItemData; }
+
 protected:
     UPROPERTY(VisibleAnywhere, Category = "Component", meta = (AllowPrivateAccess = "true"))
     USphereComponent* SphereComponent;
@@ -56,5 +58,9 @@ protected:
 
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+    UFUNCTION(BlueprintCallable, Category = "Properties")
     void InitInventoryItem();
+
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Properties")
+    FLinearColor GenerateItemColor();
 };
