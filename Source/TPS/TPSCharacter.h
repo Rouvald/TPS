@@ -3,24 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TPSCoreTypes.h"
 #include "GameFramework/Character.h"
 #include "TPSCharacter.generated.h"
 
 class UTPSInventoryComponent;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS(config = Game)
 class ATPSCharacter : public ACharacter
 {
     GENERATED_BODY()
-
-    /** Camera boom positioning the camera behind the character */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-    class USpringArmComponent* CameraBoom;
-
-    /** Follow camera */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-    class UCameraComponent* FollowCamera;
-
 public:
     ATPSCharacter();
 
@@ -32,7 +26,21 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
     float BaseLookUpRate;
 
+    /** Returns CameraBoom subobject **/
+    FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+    /** Returns FollowCamera subobject **/
+    FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+    FORCEINLINE float GetHealthPercent() const { return Health / HealthData.MaxHealth; };
+
+    bool IsDead() const;
+
 protected:
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    FHealthData HealthData;
+
+    virtual void BeginPlay() override;
+
     /** Resets HMD orientation in VR. */
     void OnResetVR();
 
@@ -60,17 +68,32 @@ protected:
     /** Handler for when a touch input stops. */
     void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-protected:
-    UPROPERTY(VisibleAnywhere)
-    UTPSInventoryComponent* InventoryComponent;
-
     // APawn interface
-    virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+    virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     // End of APawn interface
 
-public:
-    /** Returns CameraBoom subobject **/
-    FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-    /** Returns FollowCamera subobject **/
-    FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+private:
+    /** Camera boom positioning the camera behind the character */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    USpringArmComponent* CameraBoom;
+
+    /** Follow camera */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    UCameraComponent* FollowCamera;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    UTPSInventoryComponent* InventoryComponent;
+
+    float Health = 0.0f;
+    FTimerHandle AutoHealTimerHandle;
+
+    UFUNCTION()
+    void OnAnyDamageRecieved(
+        AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+
+    void AutoHeal();
+    void OnDeath();
+
+    bool IsHealthFull() const;
+    void SetHealth(float NewHealth);
 };

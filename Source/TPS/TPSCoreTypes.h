@@ -26,3 +26,21 @@ struct FInventoryItemData
 
     FString ToString() const { return FString::Printf(TEXT("(InventoryItemType=%i,ItemAmount=%i)"), InventoryItemType, ItemAmount); }
 };
+
+USTRUCT(BlueprintType)
+struct FHealthData
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (ClampMin = "1.0"))
+    float MaxHealth = 100.0f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (ClampMin = "0.1"))
+    float HealthModifier = 5.0f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (ClampMin = "0.1", Units = "s"))
+    float AutoHealRate = 0.5f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI", meta = (ClampMin = "0.1", Units = "s"))
+    float LifeSpan = 5.0f;
+};

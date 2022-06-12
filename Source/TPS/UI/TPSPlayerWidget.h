@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "TPSPlayerWidget.generated.h"
 
+class UProgressBar;
 /**
  *
  */
@@ -13,10 +14,10 @@ UCLASS()
 class TPS_API UTPSPlayerWidget : public UUserWidget
 {
     GENERATED_BODY()
-    /*protected:
-        virtual void NativeOnInitialized() override;
+public:
+    UFUNCTION(BlueprintCallable)
+    float GetHealthPercent() const;
 
-    private:
-        UPROPERTY(EditDefaultsOnly, Category="UI")
-        TSubclassOf<UUserWidget> InventoryWidgetClass;*/
+    UFUNCTION(BlueprintCallable)
+    ESlateVisibility IsPlayerAlive() const;
 };
