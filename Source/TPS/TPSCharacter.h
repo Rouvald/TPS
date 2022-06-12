@@ -31,6 +31,7 @@ public:
     /** Returns FollowCamera subobject **/
     FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+    /*UFUNCTION(BlueprintCallable, Category="UI", meta=(BlueprintProtected="true"))*/
     FORCEINLINE float GetHealthPercent() const { return Health / HealthData.MaxHealth; };
 
     bool IsDead() const;

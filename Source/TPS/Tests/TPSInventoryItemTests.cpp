@@ -176,7 +176,7 @@ bool FInventoryItemCanBeTaken::RunTest(const FString& Parameters)
 
 bool FEveryInventoryItemMeshExists::RunTest(const FString& Parameters)
 {
-    AutomationOpenMap("/Game/Tests/DefaultTestLevel");
+    LevelScope("/Game/Tests/DefaultTestLevel");
 
     UWorld* World = GetTestGameWorld();
     if (!TestNotNull(TEXT("World exists"), World)) return false;
